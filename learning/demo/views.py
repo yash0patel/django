@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Product
+from .models import Product,SwiggyUser,Teams
 from django.db.models import Q
 # Create your views here.
 
@@ -78,7 +78,7 @@ def getProducts(request):
     
     # products = Product.objects.exclude(field_name = "color").values()
     
-    # hookups
+    # lookups
     products = Product.objects.filter(name__contains="p").values()
     products = Product.objects.filter(name__icontains="P").values()
     products = Product.objects.filter(price__gt=1200).values()
@@ -93,3 +93,22 @@ def getProducts(request):
     print("products : ",products)
 
     return render(request,"productList.html",{'products':products})
+
+
+def getSwiggyUser(request):
+    # users = SwiggyUser.objects.all()
+    # users = SwiggyUser.objects.select_related('wallet')
+    users = SwiggyUser.objects.all()
+    print(f"Swiggy Users : {users}")
+    print(f"Wallet balance Users : {users[0].wallet.balance}")
+
+    return HttpResponse("Swiggy user fatch successfully")
+
+def getTeams(request):
+    teams = Teams.objects.all()
+    teams = Teams.objects.filter(tournament__name = 'ipl')
+
+    for i in teams:
+        print(f"team : {i.name} | tournament : {i.tournament.name}")
+    
+    return HttpResponse("team fatch successfully")

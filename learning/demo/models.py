@@ -88,3 +88,46 @@ class Employee(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Wallet(models.Model):
+    name = models.CharField(max_length=100)
+    balance = models.DecimalField(max_digits=10,decimal_places=2)
+
+    class Meta:
+        db_table = "wallet"
+
+    def __str__(self):
+        return self.name
+
+class SwiggyUser(models.Model):
+    name = models.CharField(max_length=10)
+    age = models.PositiveIntegerField()
+    wallet = models.OneToOneField(Wallet,on_delete=models.CASCADE,related_name="swiggy_user")
+
+    class Meta:
+        db_table = "swiggy_user"
+
+    def __str__(self):
+        return self.name
+    
+class Tournament(models.Model):
+    name = models.CharField(max_length=100)
+    date = models.DateField()
+    location = models.CharField(max_length=100)
+
+    class Meta:
+        db_table = "tournament"
+
+    def __str__(self):
+        return self.name
+    
+class Teams(models.Model):
+    name = models.CharField(max_length=100)
+    tournament = models.ForeignKey(Tournament,on_delete=models.CASCADE,related_name="teams")
+
+    class Meta:
+        db_table = "teams"
+
+    def __str__(self):
+        return self.name

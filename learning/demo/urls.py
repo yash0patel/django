@@ -23,5 +23,7 @@ urlpatterns = [
  path('about/',views.aboutus),
  path('contactus/',views.contactus),
  path('students/',views.studentList),
- path('productlist/',views.getProducts)
+ path('productlist/',views.getProducts),
+ path('swiggyuser/',views.getSwiggyUser),
+ path('team/',views.getTeams)
 ]
