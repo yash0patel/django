@@ -131,3 +131,54 @@ class Teams(models.Model):
 
     def __str__(self):
         return self.name
+
+class Course(models.Model):
+    name = models.CharField(max_length=100)
+    price = models.DecimalField(max_digits=10,decimal_places=2)
+    duration = models.PositiveIntegerField(help_text='Duration in hours')
+
+    class Meta:
+        db_table = "course"
+
+    def __str__(self):
+        return self.name
+
+class Student2(models.Model):
+    name = models.CharField(max_length=100)
+    age = models.PositiveIntegerField()
+    course = models.ManyToManyField(Course)
+
+    class Meta:
+        db_table = "student2"
+    
+    def __str__(self):
+        return self.name
+
+class Freelancer(models.Model):
+    name = models.CharField(max_length=100)
+    skills = models.CharField(max_length=100)
+    class Meta:
+        db_table = "freelancer"
+    
+    def __str__(self):
+        return self.name
+
+class Project(models.Model):
+    name = models.CharField(max_length=100)
+    freelancer = models.OneToOneField(Freelancer,on_delete=models.CASCADE,null=True)
+
+    class Meta:
+        db_table = "project"
+    
+    def __str__(self):
+        return self.name
+
+class Bid(models.Model):
+    price = models.PositiveIntegerField()
+    project = models.ForeignKey(Project,on_delete=models.CASCADE,null=True)
+
+    class Meta:
+        db_table = "bid"
+    
+    # def __str__(self):
+    #     return self.price
