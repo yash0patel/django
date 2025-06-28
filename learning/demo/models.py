@@ -165,7 +165,7 @@ class Freelancer(models.Model):
 
 class Project(models.Model):
     name = models.CharField(max_length=100)
-    freelancer = models.OneToOneField(Freelancer,on_delete=models.CASCADE,null=True)
+    description = models.TextField(null=True)
 
     class Meta:
         db_table = "project"
@@ -175,7 +175,8 @@ class Project(models.Model):
 
 class Bid(models.Model):
     price = models.PositiveIntegerField()
-    project = models.ForeignKey(Project,on_delete=models.CASCADE,null=True)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, null=True)
+    freelancer = models.ForeignKey(Freelancer, on_delete=models.CASCADE, null=True)
 
     class Meta:
         db_table = "bid"
