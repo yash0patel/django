@@ -180,6 +180,7 @@ class Bid(models.Model):
 
     class Meta:
         db_table = "bid"
+        unique_together = ('freelancer', 'project')
     
     # def __str__(self):
     #     return self.price
