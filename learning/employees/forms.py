@@ -14,3 +14,9 @@ class EmployeeForm(forms.Form):
         label="Joining Date",
         widget=forms.DateInput(attrs={'type':'date'})
     )
+
+class EmployeeSignupForm(forms.Form):
+    name = forms.CharField(max_length=100,label="Name")
+    email = forms.EmailField(label="Email")
+    password = forms.CharField(label="Password",widget=forms.PasswordInput)
+    

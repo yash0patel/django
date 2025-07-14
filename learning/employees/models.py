@@ -21,3 +21,15 @@ class Employee(models.Model):
     
     def __str__(self):
         return self.name
+
+class EmployeeSignup(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)
+    password = models.CharField(max_length=128)
+
+    class Meta:
+        db_table = 'emplyeesignup'
+    
+    def __str__(self):
+        return self.email
+
