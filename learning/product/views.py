@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from .forms import ProductForm,UserSurveyForm,PhoneForm
+from .forms import ProductForm,UserSurveyForm,PhoneForm,ContactForm
 from .models import Product,UserSurvey
 
 def createProduct(request):
@@ -32,3 +32,12 @@ def createPhoneView(request):
     else:
         form = PhoneForm()
     return render(request,"product/createPhone.html",{"form":form})
+
+def createContactView(request):
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = ContactForm()
+    return render(request,"product/createContact.html",{'form':form})

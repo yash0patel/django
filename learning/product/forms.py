@@ -1,5 +1,5 @@
 from django import forms
-from .models import UserSurvey,Phone
+from .models import UserSurvey,Phone,Contact
 
 class ProductForm(forms.Form):
     name = forms.CharField(max_length=100,label='Product Name')
@@ -81,3 +81,9 @@ class PhoneForm(forms.ModelForm):
         if stock < 0:
             raise forms.ValidationError("Stock cannot be negative.")
         return stock 
+    
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = Contact
+        fields = '__all__'
