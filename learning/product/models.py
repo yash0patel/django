@@ -24,3 +24,16 @@ class UserSurvey(models.Model):
 
     class Meta:
         db_table = "usersurvey"
+
+class Phone(models.Model):
+    brand = models.CharField(max_length=100)
+    model = models.CharField(max_length=100)
+    price = models.PositiveIntegerField()
+    description = models.TextField()
+    stock = models.PositiveIntegerField()
+
+    class Meta:
+        db_table = 'phone'
+
+    def __str__(self):
+        return self.model

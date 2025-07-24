@@ -1,5 +1,5 @@
 from django import forms
-from .models import UserSurvey
+from .models import UserSurvey,Phone
 
 class ProductForm(forms.Form):
     name = forms.CharField(max_length=100,label='Product Name')
@@ -28,3 +28,56 @@ class UserSurveyForm(forms.Form):
         label='Do you have a coupon?',
         required=False
     )
+
+
+class PhoneForm(forms.ModelForm):
+    class Meta:
+        model = Phone
+        fields = ["brand","model","price","description","stock"]
+        labels = {
+            'brand' : 'Brand',
+            'model' : 'Model',
+            'price' : 'Price',
+            'description' : 'Description',
+            'stock' : 'Stock'
+        }
+        widgets = {
+            'brand' : forms.TextInput(attrs={'placeholder' : 'Enter the brand name'}),
+            'model' : forms.TextInput(attrs={'placeholder' : 'Enter the model name'}),
+            'price' : forms.NumberInput(attrs={'placeholder' : 'Enter the price'}),
+            'description' : forms.Textarea(attrs={'placeholder' : 'Enter the description'}),
+            'stock' : forms.NumberInput(attrs={'placeholder' : 'Enter the stock'}),
+        }
+        error_messages = {
+            'brand': {
+                'required': "Brand name is required",
+                'max_length': "Brand name is too long"
+            },
+            'model': {
+                'required': "Model name is required",
+                'max_length': "Model name is too long"
+            },
+            'price': {
+                'required': "Price is required",
+                'invalid': "Enter a valid number for price"
+            },
+            'description': {
+                'required': "Description is required",
+            },
+            'stock': {
+                'required': "Stock value is required",
+                'invalid': "Enter a valid stock quantity"
+            }
+        }
+
+    def clean_price(self):
+        price = self.cleaned_data.get('price')
+        if price <= 100:
+            raise forms.ValidationError("Price must be greater than zero.")
+        return price   
+    
+    def clean_stock(self):
+        stock = self.cleaned_data.get('stock')
+        if stock < 0:
+            raise forms.ValidationError("Stock cannot be negative.")
+        return stock 
