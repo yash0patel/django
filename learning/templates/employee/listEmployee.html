@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>age</th>
+                <th>email</th>
+                <th>joining</th>
+                <th>date</th>
+                <th>action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for emp in employees %}
+            <tr>
+                <td>{{ emp.id }}</td>
+                <td>{{ emp.name }}</td>
+                <td>{{ emp.age }}</td>
+                <td>{{ emp.email }}</td>
+                <td>{{ emp.joining }}</td>
+                <td>{{ emp.date }}</td>
+                <td><a href={% url 'delete_employee' emp.id %}>DELETE</a> | <a href={% url 'update_employee' emp.id %}>UPDATE</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

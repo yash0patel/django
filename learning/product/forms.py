@@ -33,13 +33,14 @@ class UserSurveyForm(forms.Form):
 class PhoneForm(forms.ModelForm):
     class Meta:
         model = Phone
-        fields = ["brand","model","price","description","stock"]
+        fields = ["brand","model","price","description","stock","date"]
         labels = {
             'brand' : 'Brand',
             'model' : 'Model',
             'price' : 'Price',
             'description' : 'Description',
-            'stock' : 'Stock'
+            'stock' : 'Stock',
+            'date' : 'Date'
         }
         widgets = {
             'brand' : forms.TextInput(attrs={'placeholder' : 'Enter the brand name'}),
@@ -47,6 +48,7 @@ class PhoneForm(forms.ModelForm):
             'price' : forms.NumberInput(attrs={'placeholder' : 'Enter the price'}),
             'description' : forms.Textarea(attrs={'placeholder' : 'Enter the description'}),
             'stock' : forms.NumberInput(attrs={'placeholder' : 'Enter the stock'}),
+            'date' : forms.DateInput(attrs={'type':'date'})
         }
         error_messages = {
             'brand': {
@@ -67,7 +69,12 @@ class PhoneForm(forms.ModelForm):
             'stock': {
                 'required': "Stock value is required",
                 'invalid': "Enter a valid stock quantity"
+            },
+            'date': {
+                'required': "date is required",
+                'invalid': "Enter a valid date"
             }
+            
         }
 
     def clean_price(self):

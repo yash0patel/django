@@ -31,6 +31,7 @@ class Phone(models.Model):
     price = models.PositiveIntegerField()
     description = models.TextField()
     stock = models.PositiveIntegerField()
+    date = models.DateField(null=True)
 
     class Meta:
         db_table = 'phone'
