@@ -9,3 +9,7 @@ class EmployeeForm(forms.ModelForm):
             'date' : forms.DateInput(attrs={'type':'date'})
         }
         
+class PlayerForm(forms.ModelForm):
+    class Meta:
+        model = models.player
+        fields = '__all__'

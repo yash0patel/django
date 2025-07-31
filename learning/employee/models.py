@@ -10,3 +10,14 @@ class employee1(models.Model):
 
     class Meta:
         db_table = 'employee1'
+
+class player(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100)
+    age = models.PositiveIntegerField()
+    email = models.EmailField()
+    team = models.CharField(max_length=100)
+    rank = models.IntegerField()
+
+    class Meta:
+        db_table = 'player'

@@ -37,3 +37,40 @@ def update_employee(request,pk):
         form = forms.EmployeeForm(instance=employee)
 
     return render(request,'employee/update_employee.html',{'form':form})
+
+def createPlayerFormView(request):
+    if request.method == "POST":
+        form = forms.PlayerForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('list_player')
+    else:
+        form = forms.PlayerForm()
+    
+    return render(request,'player/createplayer.html',{'form':form})
+
+def listPlayer(request):
+    player = models.player.objects.all().values()
+    return render(request,"player/listplayer.html",{"player":player})
+
+def delete_player(request,pk):
+    player = models.player.objects.get(id = pk)
+    if request.method == "POST":
+        player.delete()
+        return redirect('list_player')
+    return render(request,"player/delete_config.html",{"player" : player})
+
+def update_player(request,pk):
+    player = get_object_or_404(models.player,pk=pk)
+
+    if request.method == "POST":
+        form = forms.PlayerForm(request.POST, instance=player)
+        if form.is_valid():
+            form.save()
+            return redirect('list_player')
+        else:
+            form = forms.PlayerForm(instance=player)
+    else:
+        form = forms.PlayerForm(instance=player)
+    
+    return render(request,"player/update_player.html",{'form':form})
